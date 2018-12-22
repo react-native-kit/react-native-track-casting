@@ -1,0 +1,2 @@
+include 'react-native-track-player'
+project(':react-native-track-player').projectDir = new File('../node_modules/react-native-track-player/android')

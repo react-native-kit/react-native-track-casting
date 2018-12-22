@@ -9,11 +9,7 @@
   "author": "Guichaguri",
   "license": "Apache-2.0",
   "peerDependencies": {
-    "react-native": "^0.41.2",
-    "react-native-windows": "0.41.0-rc.1"
-  },
-  "dependencies": {
-    "react-native": "^0.51.0",
-    "react-native-windows": "^0.50.0-rc.2"
+    "react-native": ">=0.57",
+    "react-native-track-player": ">=1.0.1"
   }
 }

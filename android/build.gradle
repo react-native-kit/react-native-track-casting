@@ -1,35 +1,61 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
-
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.3.1'
+        classpath 'com.android.tools.build:gradle:3.1.0'
     }
 }
 
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 22
+        minSdkVersion 16 // RN's minimum version
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
+        ndk {
+            abiFilters "armeabi-v7a", "x86"
+        }
+
+        consumerProguardFiles 'proguard-rules.txt'
     }
-    lintOptions {
-        abortOnError false
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 repositories {
+    maven {
+        // As RN is not updated in jcenter anymore, we'll have to grab it from npm
+        // Make sure you have installed the react-native npm package before compiling
+        url "../node_modules/react-native/android"
+    }
+
+    jcenter()
+    google()
     mavenCentral()
 }
 
 dependencies {
-    compile 'com.facebook.react:react-native:+'
+    //noinspection GradleDynamicVersion
+    implementation 'com.facebook.react:react-native:+'
+    implementation(project(':react-native-track-player'))
+
+    // ExoPlayer Core
+    api 'com.google.android.exoplayer:exoplayer-core:2.9.2'
+
+    // Cast Extension
+    implementation 'com.google.android.exoplayer:extension-cast:2.9.2'
+
+    // Make sure we're using at least the support library 27.1.1
+    api 'com.android.support:support-compat:27.1.1'
+    api 'com.android.support:support-media-compat:27.1.1'
 }
-  
